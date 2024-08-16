@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendFollowers - خدمات التسويق الاجتماعي المتميزة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e; /* اللون الأساسي */
+            --secondary-color: #f50057; /* اللون الثانوي */
+            --accent-color: #00bcd4; /* لون مميز للأزرار */
+            --text-color: #333; /* لون النص */
+            --bg-color: #f5f5f5; /* لون الخلفية */
+            --white: #ffffff; /* اللون الأبيض */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            color: var(--primary-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 20px;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* زر القائمة للهواتف المحمولة */
+        .menu-toggle {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* قائمة الهامبرغر */
+        .nav-links-mobile {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: var(--white);
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1001; /* لضمان ظهور القائمة فوق المحتوى الآخر */
+        }
+
+        .nav-links-mobile.active {
+            display: flex;
+        }
+
+        .nav-links-mobile a {
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .nav-links-mobile a:hover {
+            background-color: var(--bg-color);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.9), rgba(0, 188, 212, 0.9)), url('/api/placeholder/1920/1080') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0,128L48,154.7C96,181,192,235,288,250.7C384,267,480,245,576,218.7C672,192,768,160,864,170.7C960,181,1056,235,1152,250.7C1248,267,1344,245,1392,234.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom center/cover;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .btn:hover {
+            background-color: #d5004d;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+        }
+
+        .services {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-item {
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .service-item:hover::before {
+            opacity: 0.1;
+            top: -20%;
+            left: -20%;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .service-item i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover i {
+            transform: scale(1.1);
+        }
+
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-item p {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing {
+            padding: 5rem 0;
+            background-color: var(--bg-color);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-item {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        }
+
+        .pricing-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .pricing-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            right: 0;
+        }
+
+        .testimonials {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .testimonial-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial-item {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            padding: 2rem;
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            margin-right: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .faq {
+            padding: 5rem 0;
+            background-color: var(--bg-color);
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .faq-answer {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 1rem;
+        }
+
+        .cta {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta .btn {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .cta .btn:hover {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* تحسين شكل قسم طرق الدفع */
+        .payment-section {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .payment-icons img {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links-mobile {
+                display: none; /* مخفي افتراضيًا */
+            }
+
+            .nav-links-mobile.active {
+                display: flex;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-grid, .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-slider {
+                flex-direction: column;
+            }
+
+            .payment-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">TrendFollowers</a>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#pricing">الأسعار</a></li>
+                <li><a href="#testimonials">آراء العملاء</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#payment-methods">طرق الدفع</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+            <ul class="nav-links-mobile">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#pricing">الأسعار</a></li>
+                <li><a href="#testimonials">آراء العملاء</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#payment-methods">طرق الدفع</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>أفكار أفضل لنمو أسرع</h1>
+            <p>جميع خدمات السوشيال ميديا في مكان واحد فقط.</p>
+            <a href="#services" class="btn">اكتشف خدماتنا</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">خدماتنا المتميزة</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <i class="fas fa-users"></i>
+                    <h3>زيادة المتابعين</h3>
+                    <p>نساعدك في بناء جمهور حقيقي ومتفاعل على جميع منصات التواصل الاجتماعي</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-thumbs-up"></i>
+                    <h3>تعزيز التفاعل</h3>
+                    <p>نزيد من معدلات الإعجابات والتعليقات والمشاركات لمحتواك بطرق طبيعية</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>تحليلات متقدمة</h3>
+                    <p>نوفر تقارير تفصيلية وتحليلات عميقة لأداء حساباتك على وسائل التواصل الاجتماعي</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>إدارة الحملات الإعلانية</h3>
+                    <p>نصمم وندير حملات إعلانية مستهدفة لتحقيق أقصى عائد على الاستثمار</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">خطط الأسعار</h2>
+            <div class="pricing-grid">
+                <div class="pricing-item">
+                    <h3>الخطة الأساسية</h3>
+                    <div class="price">$29/شهر</div>
+                    <ul class="features">
+                        <li>زيادة متابعين أساسية</li>
+                        <li>تحليلات بسيطة</li>
+                        <li>دعم فني محدود</li>
+                    </ul>
+                    <a href="#" class="btn">اشترك الآن</a>
+                </div>
+                <div class="pricing-item">
+                    <h3>الخطة المتقدمة</h3>
+                    <div class="price">$59/شهر</div>
+                    <ul class="features">
+                        <li>زيادة متابعين متقدمة</li>
+                        <li>تحليلات متقدمة</li>
+                        <li>دعم فني 24/7</li>
+                    </ul>
+                    <a href="#" class="btn">اشترك الآن</a>
+                </div>
+                <div class="pricing-item">
+                    <h3>الخطة الاحترافية</h3>
+                    <div class="price">$99/شهر</div>
+                    <ul class="features">
+                        <li>زيادة متابعين احترافية</li>
+                        <li>تحليلات شاملة</li>
+                        <li>إدارة الحملات الإعلانية</li>
+                        <li>دعم فني مخصص</li>
+                    </ul>
+                    <a href="#" class="btn">اشترك الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">آراء العملاء</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <img src="client1.jpg" alt="Client 1">
+                    <p>"خدمات TrendFollowers أحدثت فرقاً كبيراً في تفاعل متابعينا."</p>
+                    <p><strong>أحمد خالد</strong></p>
+                </div>
+                <div class="testimonial-item">
+                    <img src="client2.jpg" alt="Client 2">
+                    <p>"التقارير والتحليلات المقدمة ساعدتنا على تحسين استراتيجياتنا."</p>
+                    <p><strong>سارة محمد</strong></p>
+                </div>
+                <div class="testimonial-item">
+                    <img src="client3.jpg" alt="Client 3">
+                    <p>"إدارة الحملات الإعلانية كانت فعالة وزادت من مبيعاتنا بشكل ملحوظ."</p>
+                    <p><strong>عمرو شريف</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">الأسئلة الشائعة</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>ما هي الخدمات التي تقدمونها؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نقدم مجموعة من الخدمات تشمل زيادة المتابعين، تعزيز التفاعل، تحليلات متقدمة، وإدارة الحملات الإعلانية.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>كيف يمكنني الاشتراك في إحدى الخطط؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>يمكنك الاشتراك عن طريق زيارة قسم "الأسعار" واختيار الخطة المناسبة لك، ثم الضغط على "اشترك الآن".</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>هل تقدمون دعم فني؟</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>نعم، نقدم دعم فني على مدار الساعة في الخطة المتقدمة والخطة الاحترافية.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="payment-methods" class="payment-section">
+        <div class="container">
+            <h2 class="section-title">طرق الدفع</h2>
+            <div class="payment-icons">
+                <img src="تنزيل (5).png" alt="Visa">
+                <img src="تنزيل (6).png" alt="MasterCard">
+                <img src="تنزيل (14).png" alt="PayPal">
+                <!-- يمكنك إضافة باقي أيقونات طرق الدفع هنا -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta">
+        <div class="container">
+            <h2>اتصل بنا اليوم للحصول على استشارة مجانية</h2>
+            <p>فريقنا متاح لمساعدتك على مدار الساعة لتقديم أفضل الحلول التسويقية.</p>
+            <a href="mailto:info@TrendFollowers.com" class="btn">تواصل معنا</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 TrendFollowers. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle FAQ answers
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const icon = question.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+
+        // Sticky header on scroll
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle mobile menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinksMobile = document.querySelector('.nav-links-mobile');
+
+        menuToggle.addEventListener('click', () => {
+            navLinksMobile.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
